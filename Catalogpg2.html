@@ -217,6 +217,46 @@
       }
     }
 	  {max-height:6000px}
+	  .fancy-title {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #0ff, #ff0, #0ff);
+  background-size: 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowGradient 5s infinite linear;
+  text-shadow: 
+    0 0 10px var(--neon),
+    0 0 20px var(--accent),
+    0 0 30px var(--neon);
+  display: inline-block;
+  position: relative;
+}
+
+.fancy-title span {
+  color: #fff;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right, #ff0, #f0f, #0ff);
+  animation: glowGradient 4s infinite alternate-reverse;
+}
+
+@keyframes glowGradient {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .fancy-title {
+    font-size: 2.5rem;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -232,7 +272,7 @@
 
   <section class="hero">
     <div class="inner">
-      <h1>NexusForge Catalog</h1>
+      <h1><span class="fancy-title">NEXUS<span>FORGE</span> CATALOG</span></h1>
     </div>
   </section>
 
