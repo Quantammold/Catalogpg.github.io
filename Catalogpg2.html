@@ -215,13 +215,48 @@
       .hero h1 {
         font-size: 2.4rem;
       }
+		.tagline {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #ddd;
+  text-shadow: 0 0 6px #0ff;
+}
+
+.hero-divider {
+  margin: 1.5rem auto;
+  border: none;
+  height: 2px;
+  width: 60%;
+  background: linear-gradient(to right, transparent, var(--neon), transparent);
+  box-shadow: 0 0 10px var(--neon);
+}
+
+.hero-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  background: var(--accent);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.3s;
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.hero-button:hover {
+  background: #fff;
+  box-shadow: 0 0 20px var(--accent), 0 0 30px var(--neon);
+}
+
     }
 	  {max-height:6000px}
 	  .fancy-title {
   font-size: 4rem;
   font-weight: 800;
   letter-spacing: 3px;
-  background: linear-gradient(90deg, #0ff, #ff0, #0ff);
+  background: linear-gradient(red, yellow);
   background-size: 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -272,7 +307,12 @@
 
   <section class="hero">
     <div class="inner">
-      <h1><span class="fancy-title">NEXUS<span>FORGE</span> CATALOG</span></h1>
+  <h1><span class="fancy-title">NEXUS<span>FORGE</span> CATALOG</span></h1>
+<p class="tagline">Your one-stop shop for 3D-printed creations</p>
+<hr class="hero-divider" />
+<a href="#catalog" class="hero-button">Browse Catalog</a>
+
+
     </div>
   </section>
 
