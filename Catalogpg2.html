@@ -1,419 +1,447 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NexusForge • Catalog</title>
-  <style>
-    :root {
-      --neon: #0ff;
-      --accent: #ff0;
-      --bg: #000;
-      --glass: rgba(255, 255, 255, 0.05);
-    }
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #fff;
-      background: var(--bg);
-      min-height: 100vh;
-    }
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	  <meta charset="UTF-8" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	  <title>NexusForge • Catalog</title>
+	  <style>
+		:root {
+		  --neon: #0ff;
+		  --accent: #ff0;
+		  --bg: #000;
+		  --glass: rgba(255, 255, 255, 0.05);
+		}
 
-    header {
-      position: sticky;
-      top: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid #222;
-      z-index: 50;
-      animation: slideDown 0.8s ease-out;
-    }
-    .logo {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--neon);
-      text-shadow: 0 0 10px var(--neon);
-    }
-    nav a {
-      margin-left: 1.25rem;
-      color: var(--accent);
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s;
-    }
-    nav a:hover {
-      color: #000;
-      background: var(--accent);
-      padding: 0.25rem 0.6rem;
-      border-radius: 8px;
-    }
+		*, *::before, *::after {
+		  box-sizing: border-box;
+		  margin: 0;
+		  padding: 0;
+		}
 
-    .controls {
-      max-width: 1300px;
-      margin: 3rem auto 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding: 0 1.5rem;
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    .controls.show {
-      animation: fadeUp 0.8s forwards;
-    }
-    .controls input,
-    .controls select {
-      padding: 0.6rem 1rem;
-      border-radius: 10px;
-      border: none;
-      font-size: 1rem;
-    }
-    .controls input {
-      flex: 1 1 240px;
-    }
+		html {
+		  scroll-behavior: smooth;
+		}
 
-    .hero {
-      position: relative;
-      height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url('https://images.unsplash.com/photo-1581093588401-918d5b78b025?auto=format&fit=crop&w=1740&q=80') center/cover fixed;
-      transform: translateZ(0) scale(1.2);
-      will-change: transform;
-      z-index: 0;
-    }
-    .hero .inner {
-      position: relative;
-      z-index: 1;
-    }
-    .hero h1 {
-      font-size: 3.5rem;
-      letter-spacing: 2px;
-      color: var(--neon);
-      text-shadow: 0 0 6px var(--neon), 0 0 12px var(--neon);
-      animation: flicker 2s infinite alternate;
-    }
+		body {
+		  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		  color: #fff;
+		  background: var(--bg);
+		  min-height: 100vh;
+		}
 
-    .catalog {
-      max-width: 1300px;
-      margin: 0 auto 4rem;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 2rem;
-    }
-    .item {
-      background: var(--glass);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 18px;
-      backdrop-filter: blur(10px);
-      overflow: hidden;
-      transform: translateY(50px) scale(0.95);
-      opacity: 0;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    .item.show {
-      animation: fadeUpScale 0.8s var(--delay) forwards;
-    }
-    .item:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 0 20px var(--neon), 0 0 40px var(--neon);
-    }
-    .thumb {
-      width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      filter: grayscale(0.2);
-      transition: filter 0.4s;
-    }
-    .item:hover .thumb {
-      filter: none;
-    }
-    .info {
-      padding: 1rem;
-    }
-    .info h3 {
-      color: var(--neon);
-      font-size: 1.1rem;
-      margin-bottom: 0.4rem;
-      text-shadow: 0 0 6px var(--neon);
-    }
-    .tag {
-      display: inline-block;
-      background: var(--accent);
-      color: #000;
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 700;
-    }
+		header {
+		  position: sticky;
+		  top: 0;
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  padding: 1rem 2rem;
+		  background: var(--glass);
+		  backdrop-filter: blur(12px);
+		  border-bottom: 1px solid #222;
+		  z-index: 50;
+		  animation: slideDown 0.8s ease-out;
+		}
 
-    section.extra {
-      padding: 3rem 1.5rem;
-      text-align: center;
-    }
-    .about { background: #111; color: #ccc; }
-    .testimonials { background: #080808; color: #eee; }
-    .cta {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-    }
-    .cta a {
-      padding: 0.6rem 1.2rem;
-      background: var(--neon);
-      color: #000;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+		.logo {
+		  font-size: 2rem;
+		  font-weight: 700;
+		  color: var(--neon);
+		  text-shadow: 0 0 10px var(--neon);
+		}
 
-    footer {
-      padding: 2rem 1rem;
-      text-align: center;
-      background: var(--bg);
-      border-top: 1px solid #222;
-      color: #888;
-      font-size: 0.9rem;
-    }
+		nav a {
+		  margin-left: 1.25rem;
+		  color: var(--accent);
+		  font-weight: 600;
+		  text-decoration: none;
+		  transition: all 0.25s;
+		}
 
-    @keyframes flicker {
-      0%,18%,22%,25%,53%,57%,100% { opacity: 1; }
-      20%,24%,55% { opacity: 0.4; }
-    }
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeUpScale {
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes slideDown {
-      from { transform: translateY(-100%); }
-      to { transform: translateY(0); }
-    }
+		nav a:hover {
+		  color: #000;
+		  background: var(--accent);
+		  padding: 0.25rem 0.6rem;
+		  border-radius: 8px;
+		}
 
-    @media(max-width: 600px) {
-      .hero h1 {
-        font-size: 2.4rem;
-      }
-		.tagline {
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  color: #ddd;
-  text-shadow: 0 0 6px #0ff;
-}
+		.controls {
+		  max-width: 1300px;
+		  margin: 3rem auto 2rem;
+		  display: flex;
+		  flex-wrap: wrap;
+		  gap: 1rem;
+		  padding: 0 1.5rem;
+		  opacity: 0;
+		  transform: translateY(40px);
+		}
 
-.hero-divider {
-  margin: 1.5rem auto;
-  border: none;
-  height: 2px;
-  width: 60%;
-  background: linear-gradient(to right, transparent, var(--neon), transparent);
-  box-shadow: 0 0 10px var(--neon);
-}
+		.controls.show {
+		  animation: fadeUp 0.8s forwards;
+		}
 
-.hero-button {
+		.controls input,
+		.controls select {
+		  padding: 0.6rem 1rem;
+		  border-radius: 10px;
+		  border: none;
+		  font-size: 1rem;
+		}
+
+		.controls input {
+		  flex: 1 1 240px;
+		}
+
+		.hero {
+		  position: relative;
+		  height: 60vh;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  text-align: center;
+		  color: #fff;
+		  overflow: hidden;
+		}
+
+		.hero::before {
+		  content: "";
+		  position: absolute;
+		  inset: 0;
+		  background: url('https://images.unsplash.com/photo-1581093588401-918d5b78b025?auto=format&fit=crop&w=1740&q=80') center/cover fixed;
+		  transform: translateZ(0) scale(1.2);
+		  will-change: transform;
+		  z-index: 0;
+		}
+
+		.hero .inner {
+		  position: relative;
+		  z-index: 1;
+		}
+
+		.hero h1 {
+		  font-size: 4rem;
+		  font-weight: 800;
+		  letter-spacing: 3px;
+		  background: linear-gradient(90deg, #0ff, #ff0, #0ff);
+		  background-size: 400%;
+		  -webkit-background-clip: text;
+		  -webkit-text-fill-color: transparent;
+		  animation: glowGradient 5s infinite linear;
+		  text-shadow:
+			0 0 10px var(--neon),
+			0 0 20px var(--accent),
+			0 0 30px var(--neon);
+		  display: inline-block;
+		  position: relative;
+		}
+
+		.hero h1 span {
+		  color: #fff;
+		  -webkit-text-fill-color: transparent;
+		  -webkit-background-clip: text;
+		  background-image: linear-gradient(to right, #ff0, #f0f, #0ff);
+		  animation: glowGradient 4s infinite alternate-reverse;
+		}
+
+		@keyframes glowGradient {
+		  0% { background-position: 0%; }
+		  100% { background-position: 100%; }
+		}
+
+		.catalog {
+		  max-width: 1300px;
+		  margin: 0 auto 4rem;
+		  padding: 0 1.5rem;
+		  display: grid;
+		  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+		  gap: 2rem;
+		}
+
+		.item {
+		  background: var(--glass);
+		  border: 1px solid rgba(255, 255, 255, 0.1);
+		  border-radius: 18px;
+		  backdrop-filter: blur(10px);
+		  overflow: hidden;
+		  transform: translateY(50px) scale(0.95);
+		  opacity: 0;
+		  transition: transform 0.4s ease, box-shadow 0.4s ease;
+		}
+
+		.item.show {
+		  animation: fadeUpScale 0.8s var(--delay) forwards;
+		}
+
+		.item:hover {
+		  transform: translateY(-10px) scale(1.02);
+		  box-shadow: 0 0 20px var(--neon), 0 0 40px var(--neon);
+		}
+
+		.thumb {
+		  width: 100%;
+		  aspect-ratio: 1/1;
+		  object-fit: cover;
+		  filter: grayscale(0.2);
+		  transition: filter 0.4s;
+		}
+
+		.item:hover .thumb {
+		  filter: none;
+		}
+
+		.info {
+		  padding: 1rem;
+		}
+
+		.info h3 {
+		  color: var(--neon);
+		  font-size: 1.1rem;
+		  margin-bottom: 0.4rem;
+		  text-shadow: 0 0 6px var(--neon);
+		}
+
+		.tag {
+		  display: inline-block;
+		  background: var(--accent);
+		  color: #000;
+		  padding: 0.2rem 0.6rem;
+		  border-radius: 12px;
+		  font-size: 0.75rem;
+		  font-weight: 700;
+		}
+
+		section.extra {
+		  padding: 3rem 1.5rem;
+		  text-align: center;
+		}
+
+		.about { background: #111; color: #ccc; }
+		.testimonials { background: #080808; color: #eee; }
+
+		.cta {
+		  background: var(--glass);
+		  backdrop-filter: blur(10px);
+		}
+
+		.cta a {
+		  padding: 0.6rem 1.2rem;
+		  background: var(--neon);
+		  color: #000;
+		  border-radius: 10px;
+		  text-decoration: none;
+		  font-weight: bold;
+		}
+
+		footer {
+		  padding: 2rem 1rem;
+		  text-align: center;
+		  background: var(--bg);
+		  border-top: 1px solid #222;
+		  color: #888;
+		  font-size: 0.9rem;
+		}
+
+		@keyframes flicker {
+		  0%,18%,22%,25%,53%,57%,100% { opacity: 1; }
+		  20%,24%,55% { opacity: 0.4; }
+		}
+
+		@keyframes fadeUp {
+		  to { opacity: 1; transform: translateY(0); }
+		}
+
+		@keyframes fadeUpScale {
+		  to { opacity: 1; transform: translateY(0) scale(1); }
+		}
+
+		@keyframes slideDown {
+		  from { transform: translateY(-100%); }
+		  to { transform: translateY(0); }
+		}
+
+		@media(max-width: 600px) {
+		  .hero h1 {
+			font-size: 2.5rem;
+		  }
+		}
+		  /* Typing effect + blinking cursor */
+.typing {
   display: inline-block;
-  margin-top: 1rem;
-  padding: 0.7rem 1.4rem;
-  font-size: 1rem;
+  border-right: 3px solid var(--neon);
+  white-space: nowrap;
+  overflow: hidden;
+  animation:
+    typing 3s steps(20, end),
+    blink-caret 0.75s step-end infinite;
   font-weight: bold;
-  color: #000;
-  background: var(--accent);
-  border-radius: 12px;
-  text-decoration: none;
-  transition: background 0.3s;
-  box-shadow: 0 0 12px var(--accent);
-}
-
-.hero-button:hover {
-  background: #fff;
-  box-shadow: 0 0 20px var(--accent), 0 0 30px var(--neon);
-}
-
-    }
-	  {max-height:6000px}
-	  .fancy-title {
   font-size: 4rem;
-  font-weight: 800;
-  letter-spacing: 3px;
-  background: linear-gradient(red, yellow);
-  background-size: 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: glowGradient 5s infinite linear;
-  text-shadow: 
-    0 0 10px var(--neon),
-    0 0 20px var(--accent),
-    0 0 30px var(--neon);
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  50% { border-color: transparent }
+}
+
+/* Glow pulse on hover for each letter */
+.hero h1 span.letter {
   display: inline-block;
-  position: relative;
+  transition: transform 0.2s, text-shadow 0.3s;
 }
 
-.fancy-title span {
-  color: #fff;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(to right, #ff0, #f0f, #0ff);
-  animation: glowGradient 4s infinite alternate-reverse;
+.hero h1 span.letter:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 8px var(--neon), 0 0 16px var(--accent);
 }
 
-@keyframes glowGradient {
-  0% {
-    background-position: 0%;
-  }
-  100% {
-    background-position: 100%;
-  }
-}
+	  </style>
+	</head>
+	<body>
 
-@media (max-width: 600px) {
-  .fancy-title {
-    font-size: 2.5rem;
-  }
-}
+	  <header>
+		<div class="logo">NexusForge</div>
+		<nav>
+		  <a href="#catalog">Catalog</a>
+		  <a href="#about">About</a>
+		  <a href="#cta">Contact</a>
+		</nav>
+	  </header>
 
-  </style>
-</head>
-<body>
+	  <section class="hero">
+		<div class="inner">
+		  <h1>NEXUS<span>FORGE</span> CATALOG</h1>
+		</div>
+	  </section>
 
-  <header>
-    <div class="logo">NexusForge</div>
-    <nav>
-      <a href="#catalog">Catalog</a>
-      <a href="#about">About</a>
-      <a href="#cta">Contact</a>
-    </nav>
-  </header>
+	  <section class="controls" id="controls">
+		<input type="text" id="search" placeholder="Search prints…" />
+		<select id="priceFilter">
+		  <option value="all">All Prices</option>
+		  <option value="0-5">$0‑5</option>
+		  <option value="5-10">$5‑10</option>
+		  <option value="10+">$10+</option>
+		</select>
+		<select id="categoryFilter">
+		  <option value="all">All Categories</option>
+		  <option value="utility">Utility</option>
+		  <option value="decor">Decor</option>
+		  <option value="toys">Toys</option>
+		  <option value="gaming">Gaming</option>
+		</select>
+	  </section>
 
-  <section class="hero">
-    <div class="inner">
-  <h1><span class="fancy-title">NEXUS<span>FORGE</span> CATALOG</span></h1>
-<p class="tagline">Your one-stop shop for 3D-printed creations</p>
-<hr class="hero-divider" />
-<a href="#catalog" class="hero-button">Browse Catalog</a>
+	  <main class="catalog" id="catalog"></main>
 
+	  <section class="extra about" id="about">
+		<h2>About NexusForge</h2>
+		<p>We design and deliver stunning 3D prints for utility, toys, and decor. Custom requests welcome!</p>
+	  </section>
 
-    </div>
-  </section>
+	  <section class="extra cta" id="cta">
+		<h2>Need Something Special?</h2>
+		<p>Have a cool idea? Let's make it real.</p>
+		<a href="https://www.surveylegend.com/s/5zwx">Request a Quote</a>
+	  </section>
 
-  <section class="controls" id="controls">
-    <input type="text" id="search" placeholder="Search prints…" />
-    <select id="priceFilter">
-      <option value="all">All Prices</option>
-      <option value="0-5">$0‑5</option>
-      <option value="5-10">$5‑10</option>
-      <option value="10+">$10+</option>
-    </select>
-    <select id="categoryFilter">
-      <option value="all">All Categories</option>
-      <option value="utility">Utility</option>
-      <option value="decor">Decor</option>
-      <option value="toys">Toys</option>
-	<option vaule="gaming">Gaming</option>
-    </select>
-  </section>
+	  <footer>
+		<p>Need something special? <a href="https://www.surveylegend.com/s/5zwx" style="color:var(--neon);">Request a custom quote here</a>.<br>&copy; 2025 NexusForge. All rights reserved.</p>
+	  </footer>
 
-  <main class="catalog" id="catalog"></main>
+	  <script>
+		const sample = [
+		  {name:"Crystal Controller Stand (1)",price:8,cat:"gaming",img:"https://images.cults3d.com/KJoMZZ6O1XTjZfyolFYTwUy1DwY=/516x516/filters:no_upscale():format(webp)/https://fbi.cults3d.com/uploaders/21085770/illustration-file/e3606b65-7bde-44d9-b547-75e0ea199634/09EC26AE-1E61-483F-A581-511577CC3FBB.jpeg"},
+		  {name:"Headphone Stand(2)",price:6,cat:"gaming",img:"https://media.printables.com/media/prints/179001/images/1674870_b756d2cc-9776-45b1-b1db-f0b30e3d517c/thumbs/inside/1600x1200/jpg/headphone-stand5.webp"},
+		  {name:"Articulated Dragon(3)",price:8,cat:"toys",img:"https://media.printables.com/media/prints/843199/images/6491511_217834e9-a087-4ca4-abae-d372432f2da5_d31eeab1-067f-4473-b391-84bebe09296e/thumbs/inside/1600x1200/jpg/dsc_0114.webp"},
+		  {name:"Fidget Toy(4)",price:3,cat:"toys",img:"https://images.cults3d.com/KEO_7TLc14ZPsHPydB0wHgsIYxY=/516x516/filters:no_upscale():format(webp)/https://fbi.cults3d.com/uploaders/36732134/illustration-file/d9bdbc01-0564-4be0-8406-fcc92f4c1718/77ed3533-0794-4812-a745-bc21365142e1.png"},
+		  {name:"Dice Tower(5)", price: 10, cat: "miniatures", img: "https://media.printables.com/media/prints/851935/images/6560725_674b33a8-8b4a-46af-b11b-ffd0fdf7e3c6_d58033ce-a4c1-45d0-bfdd-9fa74237e9e4/thumbs/inside/1600x1200/jpg/20240421_190956.webp"},
+		  {name:"Action Figure (note : assembly required)(6)", price: 6, cat: "miniatures", img: "https://media.printables.com/media/prints/981111/images/7608408_be1edc28-aaa7-4841-843d-ffa47106aadd_ca52e631-2ad3-4d1d-9e47-c5bc987e5ac7/thumbs/inside/1600x1200/jpg/runner.webp"},
+		  {name:"Butterfly comb(7)", price: 5, cat: "toys", img: "https://media.printables.com/media/prints/306800/images/2672016_4caed4c1-defd-49ff-8cfa-e5e1666c6205/thumbs/inside/1600x1200/jpg/1a2347d6a6e07a681e5b8575d795cca8_display_large_306800.webp"},
+		  {name:"Dummy 13 accessories inclued(8)", price: 2, cat: "utilities", img: "https://media.printables.com/media/prints/999987/images/7608458_a60b998a-55b7-4bcf-8fe7-fa00fa22a12d_3907f396-b7b0-4934-8746-b2255c275bd7/thumbs/inside/1600x1200/jpg/melee.webp"},
+		  {name:"Collapsing Drill Sword(9)", price: 14, cat: "toys", img: "https://media.printables.com/media/prints/535985/images/4321708_fb897e22-cc98-4035-bdef-64566b7440b0/thumbs/inside/1600x1200/png/drill-sword-pnp.webp"}
+		];
 
-  <section class="extra about" id="about">
-    <h2>About NexusForge</h2>
-    <p>We and deliver stunning 3D prints for utility, toys, and decor. Custom requests welcome!</p>
-  </section>
+		const catalog = document.getElementById('catalog');
+		sample.forEach((p, i) => {
+		  const item = document.createElement('div');
+		  item.className = 'item';
+		  item.dataset.name = p.name.toLowerCase();
+		  item.dataset.price = p.price;
+		  item.dataset.cat = p.cat;
+		  item.style.setProperty('--delay', `${i * 0.1}s`);
+		  item.innerHTML = `<img class="thumb" src="${p.img}" alt="${p.name}"><div class="info"><h3>${p.name}</h3><span class="tag">$${p.price}</span></div>`;
+		  catalog.appendChild(item);
+		});
 
-  <section class="extra cta" id="cta">
-    <h2>Need Something Special?</h2>
-    <p>Have a cool idea? Let's make it real.</p>
-    <a href="https://www.surveylegend.com/s/5zwx">Request a Quote</a>
-  </section>
+		const observer = new IntersectionObserver((entries) => {
+		  entries.forEach(e => {
+			if (e.isIntersecting) {
+			  e.target.classList.add('show');
+			  observer.unobserve(e.target);
+			}
+		  });
+		}, {threshold: 0.15});
 
-  <footer>
-    <p>Need something special? <a href="https://www.surveylegend.com/s/5zwx" style="color:var(--neon);">Request a custom quote here</a>.<br>&copy; 2025 NexusForge. All rights reserved.</p>
-  </footer>
+		window.addEventListener('DOMContentLoaded', () => {
+		  document.querySelectorAll('.item').forEach(el => observer.observe(el));
+		  observer.observe(document.getElementById('controls'));
+		});
 
-  <script>
-    const sample = [
-      {name:"Crystal Controller Stand (1)",price:8,cat:"Gaming",img:"https://images.cults3d.com/KJoMZZ6O1XTjZfyolFYTwUy1DwY=/516x516/filters:no_upscale():format(webp)/https://fbi.cults3d.com/uploaders/21085770/illustration-file/e3606b65-7bde-44d9-b547-75e0ea199634/09EC26AE-1E61-483F-A581-511577CC3FBB.jpeg"},
-      {name:"Headphone Stand(2)",price:6,cat:"Gaming",img:"https://media.printables.com/media/prints/179001/images/1674870_b756d2cc-9776-45b1-b1db-f0b30e3d517c/thumbs/inside/1600x1200/jpg/headphone-stand5.webp"},
-      {name:"Articulated Dragon(3)",price:8,cat:"toys",img:"https://media.printables.com/media/prints/843199/images/6491511_217834e9-a087-4ca4-abae-d372432f2da5_d31eeab1-067f-4473-b391-84bebe09296e/thumbs/inside/1600x1200/jpg/dsc_0114.webp"},
-      {name:"Fidget Toy(4)",price:3,cat:"toys",img:"https://images.cults3d.com/KEO_7TLc14ZPsHPydB0wHgsIYxY=/516x516/filters:no_upscale():format(webp)/https://fbi.cults3d.com/uploaders/36732134/illustration-file/d9bdbc01-0564-4be0-8406-fcc92f4c1718/77ed3533-0794-4812-a745-bc21365142e1.png"},
-     {name:"Dice Tower(5)", price: 10, cat: "miniatures", img: "https://media.printables.com/media/prints/851935/images/6560725_674b33a8-8b4a-46af-b11b-ffd0fdf7e3c6_d58033ce-a4c1-45d0-bfdd-9fa74237e9e4/thumbs/inside/1600x1200/jpg/20240421_190956.webp"},
-      {name:"Action Figure (note : assembly required)(6)", price: 6, cat: "miniatures", img: "https://media.printables.com/media/prints/981111/images/7608408_be1edc28-aaa7-4841-843d-ffa47106aadd_ca52e631-2ad3-4d1d-9e47-c5bc987e5ac7/thumbs/inside/1600x1200/jpg/runner.webp"},
-      {name:"Butterfly comb(7)", price: 5, cat: "toys", img: "https://media.printables.com/media/prints/306800/images/2672016_4caed4c1-defd-49ff-8cfa-e5e1666c6205/thumbs/inside/1600x1200/jpg/1a2347d6a6e07a681e5b8575d795cca8_display_large_306800.webp"},
-      {name:"Dummy 13 accessories inclued(8)", price: 2, cat: "utilities", img: "https://media.printables.com/media/prints/999987/images/7608458_a60b998a-55b7-4bcf-8fe7-fa00fa22a12d_3907f396-b7b0-4934-8746-b2255c275bd7/thumbs/inside/1600x1200/jpg/melee.webp"},
-      {name:"Collapsing Drill Sword(9)", price: 14, cat: "toys", img: "https://media.printables.com/media/prints/535985/images/4321708_fb897e22-cc98-4035-bdef-64566b7440b0/thumbs/inside/1600x1200/png/drill-sword-pnp.webp"}
-    ];
+		const search = document.getElementById('search');
+		const priceFilter = document.getElementById('priceFilter');
+		const catFilter = document.getElementById('categoryFilter');
 
-    const catalog = document.getElementById('catalog');
-    sample.forEach((p, i) => {
-      const item = document.createElement('div');
-      item.className = 'item';
-      item.dataset.name = p.name.toLowerCase();
-      item.dataset.price = p.price;
-      item.dataset.cat = p.cat;
-      item.style.setProperty('--delay', `${i * 0.1}s`);
-      item.innerHTML = `<img class="thumb" src="${p.img}" alt="${p.name}"><div class="info"><h3>${p.name}</h3><span class="tag">$${p.price}</span></div>`;
-      catalog.appendChild(item);
-    });
+		function priceOK(price, range) {
+		  if (range === 'all') return true;
+		  if (range === '10+') return price >= 10;
+		  const [min, max] = range.split('-').map(Number);
+		  return price >= min && price <= max;
+		}
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('show');
-          observer.unobserve(e.target);
-        }
+		function filter() {
+		  const q = search.value.toLowerCase();
+		  const p = priceFilter.value;
+		  const c = catFilter.value;
+		  document.querySelectorAll('.item').forEach(it => {
+			const vis = it.dataset.name.includes(q) &&
+						priceOK(+it.dataset.price, p) &&
+						(c === 'all' || c === it.dataset.cat);
+			it.style.display = vis ? 'block' : 'none';
+		  });
+		}
+
+		[search, priceFilter, catFilter].forEach(el => el.addEventListener('input', filter));
+		  const titleText = "NEXUSFORGE CATALOG";
+  const titleEl = document.querySelector('.hero h1');
+  const typeSound = document.getElementById('typeSound');
+
+  titleEl.innerHTML = '';
+  let index = 0;
+
+  function typeNextLetter() {
+    if (index < titleText.length) {
+      const span = document.createElement('span');
+      span.classList.add('letter');
+      span.textContent = titleText[index];
+      span.addEventListener('mouseenter', () => {
+        hoverSound?.play?.();
       });
-    }, {threshold: 0.15});
-
-    window.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.item').forEach(el => observer.observe(el));
-      observer.observe(document.getElementById('controls'));
-    });
-
-    const search = document.getElementById('search');
-    const priceFilter = document.getElementById('priceFilter');
-    const catFilter = document.getElementById('categoryFilter');
-
-    function priceOK(price, range) {
-      if (range === 'all') return true;
-      if (range === '10+') return price >= 10;
-      const [min, max] = range.split('-').map(Number);
-      return price >= min && price <= max;
+      titleEl.appendChild(span);
+      typeSound?.play?.();
+      index++;
+      setTimeout(typeNextLetter, 100);
     }
+  }
 
-    function filter() {
-      const q = search.value.toLowerCase();
-      const p = priceFilter.value;
-      const c = catFilter.value;
-      document.querySelectorAll('.item').forEach(it => {
-        const vis = it.dataset.name.includes(q) &&
-                    priceOK(+it.dataset.price, p) &&
-                    (c === 'all' || c === it.dataset.cat);
-        it.style.display = vis ? 'block' : 'none';
-      });
-    }
+  window.addEventListener('DOMContentLoaded', () => {
+    typeNextLetter();
+  });
 
-    [search, priceFilter, catFilter].forEach(el => el.addEventListener('input', filter));
-  </script>
+  // Optional hover sound
+  const hoverSound = document.getElementById('hoverSound');
+	  </script>
 
-</body>
-</html>
+	</body>
+	</html>
